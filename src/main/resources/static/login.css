@@ -1,67 +1,74 @@
 
-    body{
-      
-      background-color: aquamarine;
-    }
-  
+body {
+
+  background-color: aquamarine;
+}
+
+
 .Container {
-    width: 540px;
-    height: 620px;
-    margin: auto;
-    padding: 20px 20px 36px 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px 0 rgba(3, 3, 4, 0.1), 0 0 1px 0 rgba(239, 242, 247, 0.5);
-    background-color: #fff;
-  }
+
+  width: 540px;
+  height: 620px;
+  margin: auto;
+  padding: 20px 20px 36px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(3, 3, 4, 0.1), 0 0 1px 0 rgba(239, 242, 247, 0.5);
+  background-color: #fff;
+}
+
 .fb {
-    width: 500px;
-    height: 60px;
-    margin: auto;
-    padding: 17px 120.5px 17px 124.5px;
-    background-color: rgba(255, 255, 255, 0);
-  }
-  .Sign-In {
-    width: 99px;
-    height: 37px;
-    margin: 0 170px 50px 201px;
-    font-family: Muli;
-    font-size: 28px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.32;
-    letter-spacing: 0.1px;
-    text-align: center;
-    color: #000a12;
-  }
-  .Normal {
-    width: 500px;
-    height: 56px;
-    margin: 8px 0 0;
-    padding: 6px 14px;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 2px 0 rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
-    border: solid 1px #d3dce6;
-    background-color: #fff;
-  }
-  .login{
-    width: 500px;
-    height: 60px;
-    margin: 95px 0 20px;
-    padding: 20px 0;
-    background-color: rgba(255, 255, 255, 0);
-  }
-  .Forgot-your-password {
-    width: 500px;
-    height: 24px;
-    margin: 0 150px 100px;
-    font-family: Roboto;
-    font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.33;
-    letter-spacing: 0.09px;
-    text-align: center;
-    color: #778f9b;
-  }
+  width: 500px;
+  height: 60px;
+  margin: auto;
+  padding: 17px 120.5px 17px 124.5px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.Sign-In {
+  width: 99px;
+  height: 37px;
+  margin: 0 170px 50px 201px;
+  font-family: Muli;
+  font-size: 28px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.32;
+  letter-spacing: 0.1px;
+  text-align: center;
+  color: #000a12;
+}
+
+.Normal {
+  width: 500px;
+  height: 56px;
+  margin: 8px 0 0;
+  padding: 6px 14px;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px 0 rgba(102, 113, 123, 0.21), inset 0 0 0 1px rgba(102, 113, 123, 0.25);
+  border: solid 1px #d3dce6;
+  background-color: #fff;
+}
+
+.login {
+  width: 500px;
+  height: 60px;
+  margin: 95px 0 20px;
+  padding: 20px 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.Forgot-your-password {
+  width: 500px;
+  height: 24px;
+  margin: 0 150px 100px;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 0.09px;
+  text-align: center;
+  color: #778f9b;
+}
