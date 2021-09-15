@@ -1,180 +1,157 @@
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
+body {
+  font-family: Arial, Helvetica, sans-serif;
 
 
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-
+}
 * {
-  margin: 0px;
-  padding: 0px;
+  margin:  auto;
   box-sizing: border-box;
 }
-
-body, html {
-  height: 100%;
-  font-family: OpenSans-Regular, sans-serif;
-}
-
-/*---------------------------------------------*/
-a {
-  font-family: OpenSans-Regular;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #666666;
-  margin: 0px;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-}
-
-
-a:hover {
-  text-decoration: none;
-}
-
-
-/*---------------------------------------------*/
-input {
-  outline: none;
-  border: none;
-}
-
-
-/*---------------------------------------------*/
-button {
-  outline: none !important;
-  border: none;
-  background: transparent;
-}
-
-
-/*//////////////////////////////////////////////////////////////////
-[ login ]*/
-
-.limiter {
-  width: 100%;
-  margin: 0 auto;
-}
-
-.container-login100 {
-  width: 100%;
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  background: #e9faff;
-}
-
-.wrap-login100 {
-  width: 540px;
+body{
+  max-width: 540px;
   height: 620px;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
+}
+.container {
+  width: 100%;
   padding: 20px 20px 36px 20px;
   border-radius: 4px;
+
   box-shadow: 0 2px 4px 0 rgba(3, 3, 4, 0.1), 0 0 1px 0 rgba(239, 242, 247, 0.5);
   background-color: #fff;
-
-
-  -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-  -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 
-/*==================================================================
-[ Form ]*/
+.Sign-In {
 
-.login100-form {
-  width: 100%;
-}
-
-.login100-form-title {
-  display: block;
-  font-family: OpenSans-Regular;
-  font-size: 30px;
-  color: #555555;
-  line-height: 1.2;
-  text-align: center;
-}
-
-/*------------------------------------------------------------------
-[ Input ]*/
-
-.wrap-input100 {
-  width: 100%;
+  height: 37px;
   position: relative;
-  background-color: #fff;
-  border: 1px solid #e6e6e6;
-
-}
-
-.wrap-input100.rs1 {
-  border-top: none;
-}
-
-
-/*---------------------------------------------*/
-input.input100 {
-  height: 56px;
-  padding: 0 25px 0 25px;
-
-}
-
-
-/*------------------------------------------------------------------
-[ Button ]*/
-.container-login100-form-btn {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-
-
-}
-
-.login100-form-btn {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 0 20px;
+  font-family: Muli;
+  font-size: 28px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.32;
+  letter-spacing: 0.1px;
+  text-align: center;
+  color: #000a12;
+
+  display: flex;
+}
+.-Input-Label {
+  width: 100%;
+  height: 56px;
+  margin: 39px 0 0;
+
+}
+.Type {
+  width: 76px;
+  height: 20px;
+  font-family: Roboto;
+  font-size: 17px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: 0.08px;
+  color: #b8c1cb;
+}
+.Forgot  {
+  width: 100%;
+  height: 24px;
+  margin: 30px 0 0;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 0.09px;
+  text-align: center;
+  color: #778f9b;
+  display: block;
+}
+.Normal {
+  width: 100%;
+  height: 56px;
+  margin: 8px 0 0;
+  padding: 6px 14px;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px 0 rgba(102, 113, 123, 0.21),
+  inset 0 0 0 1px rgba(102, 113, 123, 0.25);
+  border: solid 1px #d3dce6;
+  background-color: #fff;
+  font-size: 20px;
+
+
+}
+.LoginButton {
   width: 100%;
   height: 60px;
-  background-color: rgba(13, 207, 218, 0.99);;
-
-  font-family: OpenSans-Regular;
-  font-size: 14px;
-  color: #fff;
-  line-height: 1.2;
-  text-transform: uppercase;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-
+  margin: 95px 0 20px;
+  background-color: #0078e8;
+  border-radius: 50px;
+  text-align: center;
+  border: none;
 
 }
+.LoginWFbButton {
+  width: 100%;
+  height: 60px;
+  margin: 20px 0 30px;
+  background-color: #009dff;
+  border-radius: 50px;
+  text-align: center;
+  border: none;
+}
+.TypeText {
+  width: 50px;
+  height: 20px;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
 
+  color: #fff;
+  position: relative;
+  justify-content: center;
+}
+.TypeTextFb {
+  width: 50px;
+  height: 20px;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
 
+  color: #fff;
+}
+.iconfb {
+  font-size: 20px;
+  margin-left: 10px;
+  position: relative;
+  top: 1px;
+  color: #ffffff;
+}
+.iconlock {
+  font-size: 30px;
+  margin: -44px 12px 30px;
+  text-align: right;
+  display: block;
+  color: #09a0ff;
 
+}
+.iconcheck {
+  font-size: 30px;
+  text-align: right;
+  display: block;
+  color: #13cb65;
+  margin: -44px 12px 30px;
 
-
-
+}

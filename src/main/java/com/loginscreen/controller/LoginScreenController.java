@@ -8,25 +8,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 
 public class LoginScreenController {
+  @RequestMapping("/")
+  public String fb() {
+
+    return "views/index";
+  }
 
   @RequestMapping("/admin/login/form")
-  public String loginForm(Model model) {
+  public String loginForm() {
 
-    model.addAttribute("message", "Please login");
     return "views/login";
   }
 
-
   @RequestMapping("/admin/login/error")
-  public String loginError(Model model) {
-    model.addAttribute("message", "Error");
-    return "views/login";
+  public String loginError() {
+
+    return "views/loi";
+  }
+
+  @RequestMapping("/admin/login/success")
+  public String loginSuccess() {
+
+    return "views/ok";
   }
 
 
   @GetMapping("/oauth2/login/error")
   public String error() {
-    return "views/login";
+    return "views/loi";
   }
 }
 
