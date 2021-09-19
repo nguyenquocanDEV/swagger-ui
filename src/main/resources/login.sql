@@ -7,7 +7,7 @@ CREATE TABLE login.user
 (
 
     username CHAR(30) NOT NULL PRIMARY KEY,
-    password CHAR(30) NOT NULL
+    password CHAR(100) NOT NULL
 
 );
 
