@@ -2,8 +2,11 @@ package com.loginscreen.controller;
 
 import com.loginscreen.jwt.JwtTokenProvider;
 
+import com.loginscreen.payload.AboutResponse;
 import com.loginscreen.payload.LoginRequest;
 import com.loginscreen.payload.LoginResponse;
+import com.loginscreen.repository.UserRepository;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +33,8 @@ public class RestLoginController {
   @Autowired
   private JwtTokenProvider tokenProvider;
 
+  @Autowired
+  UserRepository dao;
 
   @PostMapping("/login")
   public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
@@ -48,17 +53,24 @@ public class RestLoginController {
 
     // Trả về jwt cho người dùng.
     String jwt = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
+
     return new LoginResponse(jwt);
   }
 
-  // Api /api/random yêu cầu phải xác thực mới có thể request
+
   @GetMapping("/about")
-  public String about() {
-    return new String("JWT Hợp lệ mới có thể thấy được message này");
+  public AboutResponse about(HttpServletRequest request) {
+    String bearerToken = request.getHeader("Authorization");
+    // Kiểm tra xem header Authorization có chứa thông tin jwt không
+    if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+      String username = tokenProvider.getUsernameFromToken(bearerToken.substring(7));
+      return new AboutResponse(username);
+    }
+    return new AboutResponse("Error");
   }
 
   @GetMapping("/login")
   public String test() {
-    return new String("test get login");
+    return new String("test get login" + dao.findAll());
   }
 }

@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           // Nếu người dùng hợp lệ, set thông tin cho Seturity Context
           UsernamePasswordAuthenticationToken
               authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-              userDetails.getAuthorities());
+              null);
           authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
           SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -62,4 +62,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     return null;
   }
+
 }

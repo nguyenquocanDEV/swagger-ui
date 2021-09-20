@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -41,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    // Password encoder, để Spring Security sử dụng mã hóa mật khẩu người dùng
-    return new BCryptPasswordEncoder();
+    return NoOpPasswordEncoder.getInstance();
   }
+
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth)
