@@ -5,10 +5,13 @@ import com.loginscreen.jwt.JwtTokenProvider;
 import com.loginscreen.payload.AboutResponse;
 import com.loginscreen.payload.LoginRequest;
 import com.loginscreen.payload.LoginResponse;
+import com.loginscreen.payload.ResponseTemplate;
 import com.loginscreen.repository.UserRepository;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,7 +40,7 @@ public class RestLoginController {
   UserRepository dao;
 
   @PostMapping("/login")
-  public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
+  public ResponseTemplate authenticateUser(@RequestBody LoginRequest loginRequest) {
 
     // Xác thực thông tin người dùng Request lên
     Authentication authentication = authenticationManager.authenticate(
@@ -53,20 +56,25 @@ public class RestLoginController {
 
     // Trả về jwt cho người dùng.
     String jwt = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
-
-    return new LoginResponse(jwt);
+    LoginResponse loginResponse = new LoginResponse(jwt);
+    return new ResponseTemplate(HttpStatus.OK.value(), loginResponse,
+        HttpStatus.OK.toString());
   }
 
 
   @GetMapping("/about")
-  public AboutResponse about(HttpServletRequest request) {
+  public ResponseTemplate about(HttpServletRequest request, HttpServletResponse response) {
     String bearerToken = request.getHeader("Authorization");
     // Kiểm tra xem header Authorization có chứa thông tin jwt không
     if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
       String username = tokenProvider.getUsernameFromToken(bearerToken.substring(7));
-      return new AboutResponse(username);
+      AboutResponse aboutResponse = new AboutResponse(username);
+
+      return new ResponseTemplate(HttpStatus.OK.value(), aboutResponse,
+          HttpStatus.OK.toString());
     }
-    return new AboutResponse("Error");
+    return new ResponseTemplate(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error",
+        HttpStatus.INTERNAL_SERVER_ERROR.toString());
   }
 
   @GetMapping("/login")

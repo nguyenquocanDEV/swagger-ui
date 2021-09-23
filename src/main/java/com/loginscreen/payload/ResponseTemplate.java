@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AboutResponse {
+public class ResponseTemplate {
 
-
-    private String username;
-
+  private int statusCode;
+  private Object data;
+  private String message;
 
 
 }
