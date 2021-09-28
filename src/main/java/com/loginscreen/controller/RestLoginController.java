@@ -51,7 +51,7 @@ public class RestLoginController {
       @ApiResponse(code = 200, message = "OK", response = ResponseTemplate.class),
       @ApiResponse(code = 201, message = "Create", response = ResponseTemplate.class),
       @ApiResponse(code = 403, message = "Forbidden", response = ResponseTemplate.class),
-      @ApiResponse(code = 404, message = "Forbidden", response = ResponseTemplate.class),
+      @ApiResponse(code = 404, message = "Not Found", response = ResponseTemplate.class),
       @ApiResponse(code = 401, message = "Unauthorized", response = ResponseTemplate.class)
   })
   public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
