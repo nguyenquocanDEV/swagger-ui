@@ -1,6 +1,6 @@
 package com.loginscreen.services;
 
-import com.loginscreen.model.User;
+import com.loginscreen.model.UserEntity;
 import com.loginscreen.repository.UserRepository;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServices implements UserDetailsService {
+public class  UserServices implements UserDetailsService {
 
   @Autowired
   private UserRepository userRepository;
@@ -19,8 +19,8 @@ public class UserServices implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) {
     // Kiểm tra xem user có tồn tại trong database không?
-    User user = userRepository.findByUsername(username);
-    if (user == null) {
+    UserEntity userEntity = userRepository.findByUsername(username);
+    if (userEntity == null) {
       throw new UsernameNotFoundException(username);
     }
     return new UserDetails() {
@@ -31,12 +31,12 @@ public class UserServices implements UserDetailsService {
 
       @Override
       public String getPassword() {
-        return user.getPassword();
+        return userEntity.getPassword();
       }
 
       @Override
       public String getUsername() {
-        return user.getUsername();
+        return userEntity.getUsername();
       }
 
       @Override

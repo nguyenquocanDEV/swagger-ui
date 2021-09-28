@@ -3,7 +3,7 @@ database  login;
 use
 login;
 
-CREATE TABLE login.user
+CREATE TABLE login.userEntity
 (
 
     username CHAR(30) NOT NULL PRIMARY KEY,
@@ -11,9 +11,9 @@ CREATE TABLE login.user
 
 );
 
-INSERT INTO login.user (username, password)
+INSERT INTO login.userEntity (username, password)
 VALUES ('admin', 'admin'),
        ('quocan', '123');
 
 SELECT *
-FROM login.user;
+FROM login.userEntity;
