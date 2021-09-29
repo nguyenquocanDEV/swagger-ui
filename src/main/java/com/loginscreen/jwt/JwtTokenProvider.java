@@ -1,18 +1,21 @@
 package com.loginscreen.jwt;
-import java.util.Date;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
+import java.util.Date;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.*;
-import lombok.extern.slf4j.Slf4j;
-
 
 @Component
 @Slf4j
 public class JwtTokenProvider {
+
   // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
   private final String JWT_SECRET = "quocan";
-
   //Thời gian có hiệu lực của chuỗi jwt
   private final long JWT_EXPIRATION = 604800000L;
 
@@ -30,10 +33,10 @@ public class JwtTokenProvider {
   }
 
   // Lấy thông tin user từ token
-  public String getUsernameFromToken (String token){
-    String username = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody().getSubject();
+  public String getUsernameFromToken(String token) {
+    String username = Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody()
+        .getSubject();
     return username;
-
   }
 
   public boolean validateToken(String authToken) {

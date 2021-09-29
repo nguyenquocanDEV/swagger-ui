@@ -6,7 +6,7 @@ login;
 CREATE TABLE login.user
 (
 
-    username CHAR(30) NOT NULL PRIMARY KEY,
+    username CHAR(30)  NOT NULL PRIMARY KEY,
     password CHAR(100) NOT NULL
 
 );
