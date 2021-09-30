@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'io.freefair.lombok' version '5.1.0'
+
 
 }
 
@@ -16,7 +16,13 @@ configurations {
         extendsFrom developmentOnly
     }
 }
+jar {
+    manifest {
+        attributes "Main-Class": "com.loginscreen.LoginScreenApplication"
+    }
 
+
+}
 repositories {
     mavenCentral()
 }
@@ -42,7 +48,7 @@ dependencies {
     runtimeOnly 'org.webjars:jquery-ui:1.12.1'
     runtimeOnly 'org.webjars:bootstrap:4.1.3'
     runtimeOnly 'org.webjars:webjars-locator:0.38'
-
+    compileOnly 'com.github.jsimone:webapp-runner:9.0.27.1'
 
 }
 
