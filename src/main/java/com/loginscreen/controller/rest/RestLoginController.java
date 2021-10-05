@@ -14,13 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +51,7 @@ public class RestLoginController {
       @ApiResponse(code = 404, message = "Not Found", response = ResponseTemplate.class),
       @ApiResponse(code = 401, message = "Unauthorized", response = ResponseTemplate.class)
   })
-  public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+  public ResponseTemplate authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
     try {
       // Xác thực thông tin người dùng Request lên
       Authentication authentication = authenticationManager.authenticate(
@@ -63,12 +65,12 @@ public class RestLoginController {
       // Trả về jwt cho người dùng.
       String jwt = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
       LoginResponse loginResponse = new LoginResponse(jwt);
-      return ResponseEntity.ok(new ResponseTemplate(HttpStatus.OK.value(), loginResponse,
-          HttpStatus.OK.toString()));
-    } catch (Exception e) {
-      return ResponseEntity.badRequest()
-          .body(new ResponseTemplate(HttpStatus.BAD_REQUEST.value(), null,
-              "Kiểm tra lại user password"));
+      return ResponseTemplate.success(loginResponse);
+    } catch (AuthenticationException e) {
+      if (e instanceof BadCredentialsException) {
+        return ResponseTemplate.failure(HttpStatus.UNAUTHORIZED.value());
+      }
+      return ResponseTemplate.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
   }
 
@@ -80,16 +82,21 @@ public class RestLoginController {
       @ApiResponse(code = 404, message = "Forbidden", response = ResponseTemplate.class),
       @ApiResponse(code = 401, message = "Unauthorized", response = ResponseTemplate.class)
   })
-  public ResponseEntity<?> about(HttpServletRequest request, HttpServletResponse response) {
-    String bearerToken = request.getHeader("Authorization");
-    // Kiểm tra xem header Authorization có chứa thông tin jwt không
-    if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-      String username = tokenProvider.getUsernameFromToken(bearerToken.substring(7));
-      AboutResponse aboutResponse = new AboutResponse(username);
-      return ResponseEntity.ok(new ResponseTemplate(HttpStatus.OK.value(), aboutResponse,
-          HttpStatus.OK.toString()));
+  public ResponseTemplate about(HttpServletRequest request, HttpServletResponse response) {
+    try {
+      String bearerToken = request.getHeader("Authorization");
+      // Kiểm tra xem header Authorization có chứa thông tin jwt không
+      if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        String username = tokenProvider.getUsernameFromToken(bearerToken.substring(7));
+        AboutResponse aboutResponse = new AboutResponse(username);
+        return ResponseTemplate.success(aboutResponse);
+      }
+      return ResponseTemplate.failure(HttpStatus.BAD_REQUEST.value());
+    } catch (Exception e) {
+      if (e instanceof BadCredentialsException) {
+        return ResponseTemplate.failure(HttpStatus.UNAUTHORIZED.value());
+      }
+      return ResponseTemplate.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
-    return ResponseEntity.internalServerError().body(
-        new ResponseTemplate(HttpStatus.INTERNAL_SERVER_ERROR.value(), null, "Kiểm tra lại token"));
   }
 }
