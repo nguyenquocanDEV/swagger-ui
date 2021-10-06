@@ -9,5 +9,4 @@ class LoginScreenApplicationTests {
   @Test
   void contextLoads() {
   }
-
 }

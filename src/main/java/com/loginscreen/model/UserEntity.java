@@ -13,15 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-public class User {
+public class UserEntity {
 
   @Id
   @Column(name = "username", nullable = false, length = 30)
   private String username;
-
   @Column(name = "password", nullable = false, length = 30)
   private String password;
-
-
 }

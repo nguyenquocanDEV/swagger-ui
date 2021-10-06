@@ -16,10 +16,9 @@
   <base href="/">
   <link href="/css/main.css" rel="stylesheet" type="text/css"/>
 
-  <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <div class="container">
   <form th:action="@{/j_spring_security_check}" method="post">
     <div class="Loginform">
@@ -34,10 +33,10 @@
       <div class="-Input-Label">
         <span class="Type"> Password </span>
 
-          <label>
-            <input class="Normal" type="password" name="password" value=""/>
-            <i class="fas fa-lock iconlock"></i>
-          </label>
+        <label>
+          <input class="Normal" type="password" name="password" value=""/>
+          <i class="fas fa-lock iconlock"></i>
+        </label>
 
 
       </div>
@@ -57,17 +56,6 @@
         </span>
   </form>
 </div>
-<div class="authenticated" style="display:none">
-  Logged into Facebook as: <span id="user"></span>
-</div>
-
-<script type="text/javascript">
-  $.get("/user", function (data) {
-    $("#user").html(data.userAuthentication.details.name);
-    $(".authenticated").show()
-  });
-
-</script>
 
 </body>
 </html>
