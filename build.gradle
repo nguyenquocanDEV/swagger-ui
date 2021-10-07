@@ -1,19 +1,9 @@
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-buildscript {
-    ext {
-        springBootVersion = '2.5.4'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
 }
+
 group = 'com'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -47,5 +37,17 @@ dependencies {
     compileOnly 'com.github.jsimone:webapp-runner:9.0.27.1'
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     testImplementation 'junit:junit:4.13.2'
+    runtimeOnly 'org.postgresql:postgresql'
 
+}
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.loginscreen.LoginScreenApplication'
+        )
+    }
 }

@@ -6,7 +6,6 @@ import com.loginscreen.payload.AboutResponse;
 import com.loginscreen.payload.LoginRequest;
 import com.loginscreen.payload.LoginResponse;
 import com.loginscreen.payload.ResponseTemplate;
-import com.loginscreen.repository.UserRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -39,8 +38,6 @@ public class RestLoginController {
   private JwtTokenProvider tokenProvider;
   @Autowired
   private JwtAuthenticationFilter filter;
-  @Autowired
-  UserRepository dao;
 
   @PostMapping("/login")
   @ApiOperation(value = "login")

@@ -1,6 +1,6 @@
 package com.loginscreen.jwt;
 
-import com.loginscreen.services.UserServices;
+import com.loginscreen.services.UserDetailsServicesImpl;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Autowired
   private JwtTokenProvider tokenProvider;
   @Autowired
-  private UserServices customUserDetailsService;
+  private UserDetailsServicesImpl customUserDetailsService;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request,
