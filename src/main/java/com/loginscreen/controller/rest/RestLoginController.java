@@ -2,13 +2,16 @@ package com.loginscreen.controller.rest;
 
 import com.loginscreen.jwt.JwtAuthenticationFilter;
 import com.loginscreen.jwt.JwtTokenProvider;
+import com.loginscreen.model.UserEntity;
 import com.loginscreen.payload.AboutResponse;
 import com.loginscreen.payload.LoginRequest;
 import com.loginscreen.payload.LoginResponse;
 import com.loginscreen.payload.ResponseTemplate;
+import com.loginscreen.services.UserServices;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,8 @@ public class RestLoginController {
   private JwtTokenProvider tokenProvider;
   @Autowired
   private JwtAuthenticationFilter filter;
+  @Autowired
+  private UserServices userServices;
 
   @PostMapping("/login")
   @ApiOperation(value = "login")
@@ -95,5 +100,10 @@ public class RestLoginController {
       }
       return ResponseTemplate.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
+  }
+
+  @GetMapping("/login")
+  public List<UserEntity> test(){
+    return userServices.findAll();
   }
 }

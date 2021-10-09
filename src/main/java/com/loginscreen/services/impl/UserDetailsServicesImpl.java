@@ -1,4 +1,4 @@
-package com.loginscreen.services;
+package com.loginscreen.services.impl;
 
 import com.loginscreen.model.UserEntity;
 import com.loginscreen.repository.UserRepository;

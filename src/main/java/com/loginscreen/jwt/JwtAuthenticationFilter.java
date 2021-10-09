@@ -1,6 +1,6 @@
 package com.loginscreen.jwt;
 
-import com.loginscreen.services.UserDetailsServicesImpl;
+import com.loginscreen.services.impl.UserDetailsServicesImpl;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
