@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
   @Id
-  @Column(name = "username", nullable = false, length = 30)
+  @Column
   private String username;
-  @Column(name = "password", nullable = false, length = 30)
+  @Column
   private String password;
 }
