@@ -1,7 +1,7 @@
 package com.loginscreen;
 
 import com.loginscreen.jwt.JwtAuthenticationFilter;
-import com.loginscreen.services.UserDetailsServicesImpl;
+import com.loginscreen.services.impl.UserDetailsServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
