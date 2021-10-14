@@ -2,11 +2,11 @@ package com.loginscreen.controller.rest;
 
 import com.loginscreen.jwt.JwtAuthenticationFilter;
 import com.loginscreen.jwt.JwtTokenProvider;
-import com.loginscreen.model.UserEntity;
+import com.loginscreen.payload.AboutInfo;
 import com.loginscreen.payload.AboutResponse;
-import com.loginscreen.payload.LoginRequest;
-import com.loginscreen.payload.LoginInfo;
 import com.loginscreen.payload.BaseResponse;
+import com.loginscreen.payload.LoginInfo;
+import com.loginscreen.payload.LoginRequest;
 import com.loginscreen.payload.error.Error401;
 import com.loginscreen.payload.error.Error403;
 import com.loginscreen.payload.error.Error404;
@@ -15,7 +15,6 @@ import com.loginscreen.services.UserServices;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,31 +82,26 @@ public class RestLoginController {
   @GetMapping("/about")
   @ApiOperation(value = "about")
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = BaseResponse.class),
+      @ApiResponse(code = 200, message = "OK", response = AboutResponse.class),
       @ApiResponse(code = 403, message = "Forbidden", response = Error403.class),
       @ApiResponse(code = 404, message = "Not Found", response = Error404.class),
       @ApiResponse(code = 401, message = "Unauthorized", response = Error401.class)
   })
-  public BaseResponse about(HttpServletRequest request, HttpServletResponse response) {
+  public AboutResponse about(HttpServletRequest request, HttpServletResponse response) {
     try {
       String bearerToken = request.getHeader("Authorization");
       // Kiểm tra xem header Authorization có chứa thông tin jwt không
       if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
         String username = tokenProvider.getUsernameFromToken(bearerToken.substring(7));
-        AboutResponse aboutResponse = new AboutResponse(username);
-        return BaseResponse.success(aboutResponse);
+        AboutInfo aboutInfo = new AboutInfo(username);
+        return AboutResponse.success(aboutInfo);
       }
-      return BaseResponse.failure(HttpStatus.BAD_REQUEST.value());
+      return AboutResponse.failure(HttpStatus.BAD_REQUEST.value());
     } catch (Exception e) {
       if (e instanceof BadCredentialsException) {
-        return BaseResponse.failure(HttpStatus.UNAUTHORIZED.value());
+        return AboutResponse.failure(HttpStatus.UNAUTHORIZED.value());
       }
-      return BaseResponse.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      return AboutResponse.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
-  }
-
-  @GetMapping("/login")
-  public List<UserEntity> test(){
-    return userServices.findAll();
   }
 }

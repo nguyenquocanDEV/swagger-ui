@@ -15,9 +15,9 @@ public class BaseResponse {
   @ApiModelProperty(value = "statusCode", example = "200")
   private int statusCode;
   @Nullable
-  @ApiModelProperty (value = "data")
+  @ApiModelProperty(value = "data")
   private LoginInfo data;
-  @ApiModelProperty (value = "message", example = "Successful")
+  @ApiModelProperty(value = "message", example = "Successful")
   private String message;
 
   public static BaseResponse success(Object data) {

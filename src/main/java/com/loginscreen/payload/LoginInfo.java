@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginInfo {
+
   @ApiModelProperty(value = "accessToken", example = "ad123891237hjsdnkadsgsgsdgsdgưet24523")
   private String accessToken;
 }
