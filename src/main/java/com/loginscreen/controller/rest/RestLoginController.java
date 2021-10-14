@@ -5,8 +5,12 @@ import com.loginscreen.jwt.JwtTokenProvider;
 import com.loginscreen.model.UserEntity;
 import com.loginscreen.payload.AboutResponse;
 import com.loginscreen.payload.LoginRequest;
-import com.loginscreen.payload.LoginResponse;
-import com.loginscreen.payload.ResponseTemplate;
+import com.loginscreen.payload.LoginInfo;
+import com.loginscreen.payload.BaseResponse;
+import com.loginscreen.payload.error.Error401;
+import com.loginscreen.payload.error.Error403;
+import com.loginscreen.payload.error.Error404;
+import com.loginscreen.payload.error.Success201;
 import com.loginscreen.services.UserServices;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -47,13 +51,13 @@ public class RestLoginController {
   @PostMapping("/login")
   @ApiOperation(value = "login")
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = ResponseTemplate.class),
-      @ApiResponse(code = 201, message = "Create", response = ResponseTemplate.class),
-      @ApiResponse(code = 403, message = "Forbidden", response = ResponseTemplate.class),
-      @ApiResponse(code = 404, message = "Not Found", response = ResponseTemplate.class),
-      @ApiResponse(code = 401, message = "Unauthorized", response = ResponseTemplate.class)
+      @ApiResponse(code = 200, message = "OK", response = BaseResponse.class),
+      @ApiResponse(code = 201, message = "Create", response = Success201.class),
+      @ApiResponse(code = 403, message = "Forbidden", response = Error403.class),
+      @ApiResponse(code = 404, message = "Not Found", response = Error404.class),
+      @ApiResponse(code = 401, message = "Unauthorized", response = Error401.class)
   })
-  public ResponseTemplate authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
+  public BaseResponse authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
     try {
       // Xác thực thông tin người dùng Request lên
       Authentication authentication = authenticationManager.authenticate(
@@ -66,39 +70,39 @@ public class RestLoginController {
       SecurityContextHolder.getContext().setAuthentication(authentication);
       // Trả về jwt cho người dùng.
       String jwt = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
-      LoginResponse loginResponse = new LoginResponse(jwt);
-      return ResponseTemplate.success(loginResponse);
+      LoginInfo loginInfo = new LoginInfo(jwt);
+      return BaseResponse.success(loginInfo);
     } catch (AuthenticationException e) {
       if (e instanceof BadCredentialsException) {
-        return ResponseTemplate.failure(HttpStatus.UNAUTHORIZED.value());
+        return BaseResponse.failure(HttpStatus.UNAUTHORIZED.value());
       }
-      return ResponseTemplate.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      return BaseResponse.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
   }
 
   @GetMapping("/about")
   @ApiOperation(value = "about")
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = ResponseTemplate.class),
-      @ApiResponse(code = 403, message = "Forbidden", response = ResponseTemplate.class),
-      @ApiResponse(code = 404, message = "Forbidden", response = ResponseTemplate.class),
-      @ApiResponse(code = 401, message = "Unauthorized", response = ResponseTemplate.class)
+      @ApiResponse(code = 200, message = "OK", response = BaseResponse.class),
+      @ApiResponse(code = 403, message = "Forbidden", response = Error403.class),
+      @ApiResponse(code = 404, message = "Not Found", response = Error404.class),
+      @ApiResponse(code = 401, message = "Unauthorized", response = Error401.class)
   })
-  public ResponseTemplate about(HttpServletRequest request, HttpServletResponse response) {
+  public BaseResponse about(HttpServletRequest request, HttpServletResponse response) {
     try {
       String bearerToken = request.getHeader("Authorization");
       // Kiểm tra xem header Authorization có chứa thông tin jwt không
       if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
         String username = tokenProvider.getUsernameFromToken(bearerToken.substring(7));
         AboutResponse aboutResponse = new AboutResponse(username);
-        return ResponseTemplate.success(aboutResponse);
+        return BaseResponse.success(aboutResponse);
       }
-      return ResponseTemplate.failure(HttpStatus.BAD_REQUEST.value());
+      return BaseResponse.failure(HttpStatus.BAD_REQUEST.value());
     } catch (Exception e) {
       if (e instanceof BadCredentialsException) {
-        return ResponseTemplate.failure(HttpStatus.UNAUTHORIZED.value());
+        return BaseResponse.failure(HttpStatus.UNAUTHORIZED.value());
       }
-      return ResponseTemplate.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      return BaseResponse.failure(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
   }
 
