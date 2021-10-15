@@ -10,30 +10,30 @@ import org.springframework.http.HttpStatus;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AboutResponse {
+public class BaseResponse {
 
   @ApiModelProperty(value = "statusCode", example = "200")
   private int statusCode;
   @Nullable
   @ApiModelProperty(value = "data")
-  private AboutInfo data;
+  private LoginInfo data;
   @ApiModelProperty(value = "message", example = "Successful")
   private String message;
 
-  public static AboutResponse success(Object data) {
-    return new AboutResponse(HttpStatus.OK.value(), (AboutInfo) data, null);
+  public static BaseResponse success(Object data) {
+    return new BaseResponse(HttpStatus.OK.value(), (LoginInfo) data, null);
   }
 
-  public static AboutResponse failure(int statusCode) {
+  public static BaseResponse failure(int statusCode) {
     switch (statusCode) {
       case 400:
-        return new AboutResponse(HttpStatus.BAD_REQUEST.value(), null,
+        return new BaseResponse(HttpStatus.BAD_REQUEST.value(), null,
             HttpStatus.BAD_REQUEST.getReasonPhrase());
       case 401:
-        return new AboutResponse(HttpStatus.UNAUTHORIZED.value(), null,
+        return new BaseResponse(HttpStatus.UNAUTHORIZED.value(), null,
             HttpStatus.UNAUTHORIZED.getReasonPhrase());
       default:
-        return new AboutResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), null,
+        return new BaseResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), null,
             HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
   }
